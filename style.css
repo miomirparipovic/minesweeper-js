@@ -13,15 +13,11 @@ body {
 }
 
 .app {
-  width: 100%;
-  height: 100vh;
-}
-
-.container {
   margin: 0 auto;
   width: 50rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  background-color: yellowgreen;
 }
