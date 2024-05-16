@@ -40,9 +40,9 @@ body {
   grid-template-columns: repeat(var(--size), var(--dimension));
   grid-template-rows: repeat(var(--size), var(--dimension));
   gap: 4px;
-  background-color: grey;
+  background-color: #aaa;
 }
 
 .board > div {
-  border: 2px solid red;
+  border: 2px solid gray;
 }

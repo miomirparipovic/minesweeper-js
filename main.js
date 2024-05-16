@@ -1,12 +1,13 @@
+import { BOARD_SIZE } from "./data";
 import "./style.css";
 
 function generateBoard() {
   const board = [];
 
-  for (let x = 0; x < 10; x++) {
+  for (let x = 0; x < BOARD_SIZE; x++) {
     const row = [];
 
-    for (let y = 0; y < 10; y++) {
+    for (let y = 0; y < BOARD_SIZE; y++) {
       const element = document.createElement("div");
       element.dataset.status = "hidden";
 
@@ -33,3 +34,5 @@ board.forEach((row) => {
     boardElement.append(tile.element);
   });
 });
+
+boardElement.style.setProperty("--size", BOARD_SIZE);
