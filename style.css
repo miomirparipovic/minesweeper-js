@@ -12,13 +12,17 @@ body {
   font-family: Arial, sans-serif;
 }
 
+:root {
+  --size: 10;
+  --dimension: 60px;
+}
+
 .app {
   margin: 0 auto;
   width: 50rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  flex-direction: column;
 }
 
 .title {
@@ -28,4 +32,17 @@ body {
 .message {
   font-size: 1.2rem;
   margin-bottom: 0.8rem;
+}
+
+.board {
+  display: grid;
+  padding: 10px;
+  grid-template-columns: repeat(var(--size), var(--dimension));
+  grid-template-rows: repeat(var(--size), var(--dimension));
+  gap: 4px;
+  background-color: grey;
+}
+
+.board > div {
+  border: 2px solid red;
 }
