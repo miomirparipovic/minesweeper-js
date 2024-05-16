@@ -19,5 +19,13 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  background-color: yellowgreen;
+}
+
+.title {
+  margin: 1.5rem;
+}
+
+.message {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
 }
