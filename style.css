@@ -12,10 +12,10 @@ body {
   font-family: Arial, sans-serif;
 }
 
-:root {
+/* :root {
   --size: 10;
   --dimension: 60px;
-}
+} */
 
 .app {
   margin: 0 auto;
