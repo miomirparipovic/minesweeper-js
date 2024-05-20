@@ -1,3 +1,5 @@
+import { TILE_STATUS } from "./data";
+
 export function generateBoard(boardSize, numberOfMines) {
   const board = [];
   const minePositions = generateMinePositionsDesc(boardSize, numberOfMines);
@@ -10,7 +12,7 @@ export function generateBoard(boardSize, numberOfMines) {
 
     for (let y = 0; y < boardSize; y++) {
       const element = document.createElement("div");
-      element.dataset.status = "hidden";
+      element.dataset.status = TILE_STATUS.HIDDEN;
 
       const tile = {
         element,
@@ -51,4 +53,36 @@ function generateMinePositionsDesc(boardSize, numberOfMines) {
   }
 
   return [...minePositions].sort((a, b) => b - a);
+}
+
+export function markTile(tile) {
+  if (tile.status != TILE_STATUS.HIDDEN && tile.status != TILE_STATUS.MARKED) {
+    return;
+  }
+
+  if (tile.status == TILE_STATUS.HIDDEN) {
+    tile.status = TILE_STATUS.MARKED;
+    return;
+  }
+
+  if (tile.status == TILE_STATUS.MARKED) {
+    tile.status = TILE_STATUS.HIDDEN;
+    return;
+  }
+}
+
+export function revealTile(tile, board) {}
+
+export function returnClickedTileObject(clickOnTile, board) {
+  const clickedTileRow = board.find((row) =>
+    row.some((tile) => tile.element == clickOnTile)
+  );
+  if (clickedTileRow) {
+    const clickedTile = clickedTileRow.find(
+      (tile) => tile.element == clickOnTile
+    );
+    return clickedTile;
+  }
+
+  return;
 }
