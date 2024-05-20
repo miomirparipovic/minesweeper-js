@@ -12,6 +12,12 @@ export function generateBoard(boardSize) {
         element,
         x,
         y,
+        get status() {
+          return this.element.dataset.status;
+        },
+        set status(value) {
+          this.element.dataset.status = value;
+        },
       };
 
       row.push(tile);
@@ -20,6 +26,6 @@ export function generateBoard(boardSize) {
     board.push(row);
   }
 
-  //   console.log("board", board);
+  // console.log("board", board);
   return board;
 }
