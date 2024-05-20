@@ -2,6 +2,8 @@ export function generateBoard(boardSize, numberOfMines) {
   const board = [];
   const minePositions = generateMinePositionsDesc(boardSize, numberOfMines);
   console.log("mine positions", minePositions);
+  let currentMinePosition = minePositions.pop();
+  let currentTilePosition = 0;
 
   for (let x = 0; x < boardSize; x++) {
     const row = [];
@@ -14,7 +16,7 @@ export function generateBoard(boardSize, numberOfMines) {
         element,
         x,
         y,
-        // mine: true,
+        mine: false,
         get status() {
           return this.element.dataset.status;
         },
@@ -22,6 +24,13 @@ export function generateBoard(boardSize, numberOfMines) {
           this.element.dataset.status = value;
         },
       };
+
+      if (currentTilePosition == currentMinePosition) {
+        tile.mine = true;
+        currentMinePosition = minePositions.pop();
+      }
+
+      currentTilePosition++;
 
       row.push(tile);
     }
