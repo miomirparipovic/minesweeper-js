@@ -1,5 +1,6 @@
 import { BOARD_SIZE, DIMENSION, MINES } from "./data";
 import {
+  countMinesLeft,
   generateBoard,
   markTile,
   returnClickedTileObject,
@@ -35,6 +36,7 @@ boardElement.addEventListener("contextmenu", (e) => {
   const clickedTile = returnClickedTileObject(e.target, board);
   if (clickedTile) {
     markTile(clickedTile);
+    minesLeft.textContent = countMinesLeft(board);
   }
   console.log("click right", clickedTile);
 });

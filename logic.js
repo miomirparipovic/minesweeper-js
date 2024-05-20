@@ -1,4 +1,4 @@
-import { TILE_STATUS } from "./data";
+import { MINES, TILE_STATUS } from "./data";
 
 export function generateBoard(boardSize, numberOfMines) {
   const board = [];
@@ -85,4 +85,14 @@ export function returnClickedTileObject(clickOnTile, board) {
   }
 
   return;
+}
+
+export function countMinesLeft(board) {
+  const markedTilesCount = board.reduce(
+    (count, row) =>
+      count + row.filter((tile) => tile.status == TILE_STATUS.MARKED).length,
+    0
+  );
+
+  return MINES - markedTilesCount;
 }
