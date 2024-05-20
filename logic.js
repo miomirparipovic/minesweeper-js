@@ -1,5 +1,7 @@
-export function generateBoard(boardSize) {
+export function generateBoard(boardSize, numberOfMines) {
   const board = [];
+  const minePositions = generateMinePositionsDesc(boardSize, numberOfMines);
+  console.log("mine positions", minePositions);
 
   for (let x = 0; x < boardSize; x++) {
     const row = [];
@@ -12,6 +14,7 @@ export function generateBoard(boardSize) {
         element,
         x,
         y,
+        // mine: true,
         get status() {
           return this.element.dataset.status;
         },
@@ -26,6 +29,17 @@ export function generateBoard(boardSize) {
     board.push(row);
   }
 
-  // console.log("board", board);
+  console.log("board", board);
   return board;
+}
+
+function generateMinePositionsDesc(boardSize, numberOfMines) {
+  const minePositions = new Set();
+
+  while (minePositions.size < numberOfMines) {
+    const getRandomInteger = Math.floor(Math.random() * boardSize * boardSize);
+    minePositions.add(getRandomInteger);
+  }
+
+  return [...minePositions].sort((a, b) => b - a);
 }
