@@ -43,6 +43,19 @@ body {
   background-color: #aaa;
 }
 
-.board > div {
-  border: 2px solid gray;
+.board > [data-status="hidden"] {
+  background-color: gray;
+  cursor: pointer;
+}
+
+.board > [data-status="mine"] {
+  background-color: red;
+}
+
+.board > [data-status="number"] {
+  background-color: none;
+}
+
+.board > [data-status="marked"] {
+  background-color: yellow;
 }
