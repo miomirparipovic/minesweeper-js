@@ -12,3 +12,6 @@ board.forEach((row) => {
 
 boardElement.style.setProperty("--size", BOARD_SIZE);
 boardElement.style.setProperty("--dimension", DIMENSION);
+
+const minesLeft = document.querySelector("#mines-left");
+minesLeft.textContent = MINES;
