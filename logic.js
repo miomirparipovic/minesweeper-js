@@ -155,3 +155,27 @@ function nearbyTiles(board, { x, y }) {
   console.log("tiles", tiles);
   return tiles;
 }
+
+export function checkWin(board) {
+  return board.every((row) => {
+    return row.every((tile) => {
+      return (
+        // is tile a number (revealed)?
+        tile.status == TILE_STATUS.NUMBER ||
+        (tile.mine &&
+          // is tile a mine and is either hidden or mark?
+          (tile.status == TILE_STATUS.HIDDEN ||
+            tile.status == TILE_STATUS.MARKED))
+      );
+    });
+  });
+}
+
+export function checkLose(board) {
+  // check if at least one mine is revealed
+  return board.some((row) => {
+    return row.some((tile) => {
+      return tile.status == TILE_STATUS.MINE;
+    });
+  });
+}
