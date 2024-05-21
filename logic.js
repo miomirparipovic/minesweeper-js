@@ -71,7 +71,47 @@ export function markTile(tile) {
   }
 }
 
-export function revealTile(tile, board) {}
+export function revealTile(tile, board) {
+  if (!tile) return;
+
+  if (tile.status != TILE_STATUS.HIDDEN) {
+    console.log("not hidden");
+    return;
+  }
+
+  if (tile.mine) {
+    tile.status = TILE_STATUS.MINE;
+    console.log("clicked on a mine");
+    return;
+  }
+
+  tile.status = TILE_STATUS.NUMBER;
+  const adjecentTiles = nearbyTiles(board, tile);
+  const mines = adjecentTiles.filter((tile) => tile.mine);
+
+  if (mines.length) {
+    tile.element.textContent = mines.length;
+  } else {
+    adjecentTiles.forEach((tile) => revealTile(tile, board));
+  }
+
+  // const mines = adjecentTiles.reduce((mineCount, tile) => {
+  //   if (tile.mine == true) {
+  //     return mineCount + 1;
+  //   } else {
+  //     return mineCount;
+  //   }
+  // }, 0);
+
+  // const mines = adjecentTiles.reduce(
+  //   (mineCount, tile) => (tile.mine ? mineCount + 1 : mineCount),
+  //   0
+  // );
+
+  // if (mines) {
+  //   tile.element.textContent = mines;
+  // }
+}
 
 export function returnClickedTileObject(clickOnTile, board) {
   const clickedTileRow = board.find((row) =>
@@ -95,4 +135,23 @@ export function countMinesLeft(board) {
   );
 
   return MINES - markedTilesCount;
+}
+
+function nearbyTiles(board, { x, y }) {
+  const tiles = [];
+
+  for (let xOffset = -1; xOffset < 2; xOffset++) {
+    for (let yOffset = -1; yOffset < 2; yOffset++) {
+      let tile = null;
+      tile = board[x + xOffset]?.[y + yOffset];
+
+      console.log("tile", tile);
+      if (tile) {
+        tiles.push(tile);
+      }
+    }
+  }
+
+  console.log("tiles", tiles);
+  return tiles;
 }

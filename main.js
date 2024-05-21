@@ -27,7 +27,7 @@ boardElement.addEventListener("click", (e) => {
   //   .flat()
   //   .find((tile) => tile.element == clickedTileElement);
   const clickedTile = returnClickedTileObject(e.target, board);
-  revealTile();
+  revealTile(clickedTile, board);
   console.log("clicked tile", clickedTile);
 });
 
