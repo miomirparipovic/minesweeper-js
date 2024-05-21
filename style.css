@@ -40,11 +40,20 @@ body {
   grid-template-columns: repeat(var(--size), var(--dimension));
   grid-template-rows: repeat(var(--size), var(--dimension));
   gap: 4px;
-  background-color: #aaa;
+  background-color: #777;
+}
+
+.board > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3rem;
+  border: 2px solid #bbb;
 }
 
 .board > [data-status="hidden"] {
-  background-color: gray;
+  background-color: #bbb;
   cursor: pointer;
 }
 

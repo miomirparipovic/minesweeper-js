@@ -1,5 +1,8 @@
-import { BOARD_SIZE, DIMENSION, MINES } from "./data";
+import { BOARD_SIZE, DIMENSION, MINES, TILE_STATUS } from "./data";
 import {
+  checkLose,
+  checkWin,
+  countMinesLeft,
   generateBoard,
   markTile,
   returnClickedTileObject,
@@ -20,21 +23,52 @@ boardElement.style.setProperty("--dimension", DIMENSION);
 
 const minesLeft = document.querySelector("#mines-left");
 minesLeft.textContent = MINES;
+const messageText = document.querySelector(".message");
 
-boardElement.addEventListener("click", (e) => {
+boardElement.addEventListener("click", handleLeftClick);
+boardElement.addEventListener("contextmenu", handleRightClick);
+
+function handleLeftClick(e) {
   // const clickedTile = board
   //   .flat()
   //   .find((tile) => tile.element == clickedTileElement);
   const clickedTile = returnClickedTileObject(e.target, board);
-  revealTile();
-  console.log("clicked tile", clickedTile);
-});
+  revealTile(clickedTile, board);
+  checkIfGameEnded();
+  // console.log("clicked tile", clickedTile);
+}
 
-boardElement.addEventListener("contextmenu", (e) => {
+function handleRightClick(e) {
   e.preventDefault();
   const clickedTile = returnClickedTileObject(e.target, board);
   if (clickedTile) {
     markTile(clickedTile);
+    minesLeft.textContent = countMinesLeft(board);
   }
-  console.log("click right", clickedTile);
-});
+  // console.log("click right", clickedTile);
+}
+
+function checkIfGameEnded() {
+  const win = checkWin(board);
+  const lose = checkLose(board);
+
+  // stop revealing more tiles
+  if (win || lose) {
+    boardElement.removeEventListener("click", handleLeftClick);
+    boardElement.removeEventListener("contextmenu", handleRightClick);
+  }
+
+  if (win) {
+    messageText.textContent = "You win";
+  }
+
+  if (lose) {
+    messageText.textContent = "You lose";
+    board.forEach((row) => {
+      row.forEach((tile) => {
+        if (tile.status == TILE_STATUS.MARKED) markTile(tile);
+        if (tile.mine) revealTile(tile, board);
+      });
+    });
+  }
+}
